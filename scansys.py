@@ -35,8 +35,7 @@ exclude_files = {
 }
 
 
-def scan_file_system(root_dir):
-    conn, cursor = create_database()
+async def scan_file_system(root_dir):
     print("started addeding")
     for dirpath, dirnames, filenames in os.walk(root_dir):
         print(f"Directory: {dirpath}")
@@ -78,9 +77,9 @@ def scan_file_system(root_dir):
             mtime = datetime.datetime.fromtimestamp(os.path.getmtime(dirpath + "\\" + filename))
             print(hashcode)
             print(dtime)
-            insert_file(cursor,conn,[filename,dirpath + "\\" + filename,size,dtime,mtime,hashcode])
+            insert_file([filename,dirpath + "\\" + filename,size,dtime,mtime,hashcode])
     print("file added")
-    display_all_entries(cursor)
+    return await display_all_entries()
 
             
 
@@ -88,6 +87,6 @@ def scan_file_system(root_dir):
     
 
 # Example usage:
-root_directory = "."
-scan_file_system(root_directory)
+# root_directory = "."
+# scan_file_system(root_directory)
 

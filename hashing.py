@@ -33,6 +33,5 @@ def hashfile(filename):
 
     return sha256.hexdigest()
 
-# file_hash = hashfile("/Users\\Download\\autumn-8688876_1280.jpg")
-# print(file_hash)
+
 
