@@ -34,8 +34,10 @@ def StopMoniter():
 def Search():
     search_file()
 
-@app.delete("/delete")
-async def delete(id:int=Body(...),path:str=Body(...)):
+@app.delete("/delete/{id}")
+async def delete(id):
+    print(f"id:= {id}")
     # return f"{id} and {path}"
-    await deletefile(id,path)
+    await deletefile(id)
     return await scan()
+    return f"id:= {id}"

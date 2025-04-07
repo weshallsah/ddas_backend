@@ -42,6 +42,14 @@ def insert_file(Data):
     except Exception as e:
         print(f"Error inserting {Data}: {e}")
 
+async def searchById(id):
+    query = f"SELECT * FROM files WHERE id={id}"
+    print(query)
+    cursor.execute(query)
+    return cursor.fetchall()
+    # params = []
+
+
 def search_file(Data):
     query = "SELECT id, hashcode FROM files WHERE 1=1"
     params = []
@@ -65,12 +73,14 @@ def search_file(Data):
         
     return False
 
-async def deletefile(id,path):
-    os.remove(path)
-    print(path)
-    query = f"DELETE FROM customers WHERE id = '{id}'"
+async def deletefile(id):
+    data =await searchById(id)
+    print(data)
+    os.remove(data[0][2])
+    # print(path)
+    query = f"DELETE FROM files WHERE id = '{id}'"
     print(query)
-    cursor.execute(sql)
+    cursor.execute(query)
     conn.commit()
     print(cursor.rowcount, "record(s) deleted")
     return True
