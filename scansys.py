@@ -16,15 +16,17 @@ exclude_dirs = [
     "locallow",           # Low-integrity app data (inside AppData)
     "temp",                # Temporary files
     "__pycache__",
+    ".git"
 ]
 
 exclude_extensions = {
     ".log",      # Log files with potential user activity
     ".dat",      # Data files (e.g., NTUSER.DAT)
-    ".ini",      # Configuration files
+    ".ini",      # Configuration files 
     ".db",       # Database files
     ".sqlite",   # SQLite database files
-    ".bak"       # Backup files
+    ".bak",       # Backup files
+    ".git"
 }
 
 exclude_files = {
@@ -70,7 +72,7 @@ async def scan_file_system(root_dir):
             if(iscontinue):
                 continue
 
-            hashcode = hashfile(dirpath + "\\" + filename)
+            hashcode = hashfile(filename,dirpath + "\\" + filename)
             size = os.path.getsize(dirpath + "\\" + filename)
             ftime = os.path.getctime(dirpath + "\\" + filename)
             dtime = datetime.datetime.fromtimestamp(ftime)

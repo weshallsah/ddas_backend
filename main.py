@@ -1,11 +1,11 @@
 
-from sqlDB import create_database,insert_file,display_all_entries,search_file
+from sqlDB import create_database,insert_file,display_all_entries,search_file,deletefile
 from scansys import scan_file_system
 from curd import stopMonitor,StartMonitor
 
 from typing import Union
 
-from fastapi import FastAPI
+from fastapi import Body, FastAPI
 
 app = FastAPI()
 
@@ -14,7 +14,7 @@ conn, cursor = create_database()
 
 @app.get("/scan")
 async def scan():
-    root_directory = "."
+    root_directory = "D:\project\demo"
     return await scan_file_system(root_directory)
 
 @app.get("/getdata")
@@ -34,3 +34,8 @@ def StopMoniter():
 def Search():
     search_file()
 
+@app.delete("/delete")
+async def delete(id:int=Body(...),path:str=Body(...)):
+    # return f"{id} and {path}"
+    await deletefile(id,path)
+    return await scan()

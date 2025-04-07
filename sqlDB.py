@@ -64,3 +64,13 @@ def search_file(Data):
                 return True
         
     return False
+
+async def deletefile(id,path):
+    os.remove(path)
+    print(path)
+    query = f"DELETE FROM customers WHERE id = '{id}'"
+    print(query)
+    cursor.execute(sql)
+    conn.commit()
+    print(cursor.rowcount, "record(s) deleted")
+    return True

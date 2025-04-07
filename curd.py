@@ -29,7 +29,7 @@ class MyHandler(FileSystemEventHandler):
                 return
             print(f"🟡 Modified: {event.src_path}")
             filename = os.path.basename(event.src_path)
-            hashcode = hashfile(event.src_path)
+            hashcode = hashfile(filename,event.src_path)
             size = os.path.getsize(event.src_path)
             ftime = os.path.getctime(event.src_path)
             dtime = datetime.datetime.fromtimestamp(ftime)
